@@ -1,8 +1,8 @@
 import Foundation
 
 enum FilePart: String {
-    case Input = "/Users/...input.txt"
-    case Sample = "/Users/.../sample.txt"
+    case Input = "input.txt"
+    case Sample = "sample.txt"
 }
 
 struct Row {
@@ -13,7 +13,8 @@ struct Row {
 struct FileReader {
     func readFile(filename:String) -> [String] {
         do {
-            let read = try String(contentsOfFile: filename, encoding: .utf8)
+            let filePath = ""
+            let read = try String(contentsOfFile: filePath + filename, encoding: .utf8)
             return read.split(separator: "\n").map { String($0) }
         } catch {
             print(error)
@@ -46,7 +47,6 @@ struct PartOne {
         return self.pos
     }
     
-    //TODO: Implement filename default
     mutating func solve(filename:FilePart = .Sample) {
         let reader = FileReader()
         let input = reader.readFile(filename: filename.rawValue)
@@ -97,13 +97,16 @@ struct PartTwo {
         let reader = FileReader()
         let input = reader.readFile(filename: filename.rawValue)
         var temp:Row = Row(dir: "L", inc: 0)
+        var posTemp = 0
         for line in input {
             temp = Row(dir: String(line.first!),
                        inc: Int(line.dropFirst())!)
             if temp.dir == "L" {
-                print(line, turnLeft(by: temp.inc), zeroClickCount)
+                posTemp = turnLeft(by: temp.inc)
+//                print(line, posTemp, zeroClickCount)
             } else if temp.dir == "R" {
-                print(line, turnRight(by: temp.inc), zeroClickCount)
+                posTemp = turnRight(by: temp.inc)
+//                print(line, posTemp, zeroClickCount)
             }
         }
         print(self.zeroClickCount)
@@ -114,6 +117,7 @@ print("Part One:")
 var partOne = PartOne()
 partOne.solve(filename: .Input)
 
+///TODO: Fix Part Two, this should be 6099 as the response, not 4963.. Not sure what's going on here.
 print("\nPart Two:")
 var partTwo = PartTwo()
 partTwo.solve(filename: .Input)
