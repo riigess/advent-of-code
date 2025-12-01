@@ -11,8 +11,8 @@ class PartOne:
             pos %= 100
         return pos
 
-    def solve(self, filename:str="part1.txt"):
-        bounds = list(range(0, 100))
+    def solve(self, filename:str="input.txt"):
+        # bounds = list(range(0, 100))
         pos = 50
         zero_count = 0
 
@@ -31,8 +31,8 @@ class PartOne:
         print('zero_count:', zero_count)
 
 
-zero_click_count = 0
 #Part Two
+zero_click_count = 0
 class PartTwo(PartOne):
     def turn_left(self, pos, by:int):
         global zero_click_count
@@ -58,5 +58,5 @@ if __name__ == "__main__":
 
     print("\nDay 2:")
     part_two = PartTwo()
-    part_two.solve(filename="part2.txt")
+    part_two.solve(filename="input.txt")
     print("zero_click_count:", zero_click_count)
